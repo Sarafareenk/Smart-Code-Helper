@@ -34,15 +34,7 @@ A beginner-friendly Python tool that analyzes and improves code in **Python**, *
 - Formats code using `Clang-Format`
 - Provides basic improvement suggestions
 
----
 
-## 🚀 How to Use
-
-### 🔗 Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/Sarafareenk/smart-code-helper.git
-cd smart-code-helper
 
 
 
