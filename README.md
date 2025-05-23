@@ -15,24 +15,7 @@ A beginner-friendly Python tool that helps analyze and improve Python code — p
    ```bash
    git clone https://github.com/Sarafareenk/smart-code-helper.git
    cd smart-code-helper
----
-## 🧠 Smart Code Helper (Phase 2)
 
-A beginner-friendly Python tool that analyzes and improves code in **Python**, **C**, and **C++** — ideal for students preparing for lab exams, debugging, or just learning programming more deeply.
-
----
-
-## ✨ Features
-
-### ✅ Python
-- Detects bugs using `pyflakes`
-- Explains code logic using `ast`
-- Suggests improvements (comments, readability)
-
-### ✅ C / C++
-- Detects syntax issues using `Cppcheck`
-- Formats code using `Clang-Format`
-- Provides basic improvement suggestions
 
 
 
