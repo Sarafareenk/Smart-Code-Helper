@@ -1,7 +1,9 @@
-import ast
+import os
 import subprocess
 import tempfile
+import ast
 
+# -------------------- Python Code Analysis --------------------
 def detect_python_bugs(code):
     """Use pyflakes to find errors and warnings in Python code."""
     with tempfile.NamedTemporaryFile(suffix=".py", delete=False, mode='w') as temp:
@@ -42,24 +44,51 @@ def suggest_improvements(code):
         suggestions.append("Code is very short – try a more complex example for deeper analysis.")
     return suggestions or ["No improvements found."]
 
-# ---------- Example usage ----------
+# -------------------- C/C++ Code Analysis --------------------
+def run_cppcheck(file_path):
+    """Run cppcheck to find bugs in C/C++ code."""
+    result = subprocess.run(["cppcheck", file_path], capture_output=True, text=True)
+    return result.stderr.strip() or "No bugs detected."
+
+def format_code(file_path):
+    """Use clang-format to format C/C++ code."""
+    result = subprocess.run(["clang-format", file_path], capture_output=True, text=True)
+    return result.stdout.strip() or "No formatting changes."
+
+# -------------------- Unified Main Logic --------------------
+def main():
+    file_path = input("Enter the path to your code file: ").strip()
+
+    if not os.path.exists(file_path):
+        print("❌ Error: File does not exist.")
+        return
+
+    file_ext = os.path.splitext(file_path)[1]
+
+    if file_ext == '.py':
+        with open(file_path, 'r') as f:
+            code = f.read()
+
+        print("\n🛠️ Bug Report (Python):\n" + "-"*50)
+        print(detect_python_bugs(code))
+
+        print("\n📖 Code Explanation:\n" + "-"*50)
+        print(explain_code_logic(code))
+
+        print("\n💡 Suggestions:\n" + "-"*50)
+        for suggestion in suggest_improvements(code):
+            print("- " + suggestion)
+
+    elif file_ext in ['.c', '.cpp']:
+        print("\n🛠️ Bug Report (Cppcheck):\n" + "-"*50)
+        print(run_cppcheck(file_path))
+
+        print("\n🧹 Formatted Code (Clang-Format):\n" + "-"*50)
+        print(format_code(file_path))
+
+    else:
+        print("⚠️ Unsupported file type. Please use .py, .c, or .cpp")
+
 if __name__ == "__main__":
-    print("Enter your Python code (press Enter twice to finish):\n")
-    lines = []
-    while True:
-        line = input()
-        if line.strip() == "":
-            break
-        lines.append(line)
+    main()
 
-    user_code = "\n".join(lines)
-
-    print("\n🛠️ Bug Report:\n" + "-"*50)
-    print(detect_python_bugs(user_code))
-
-    print("\n📖 Code Explanation:\n" + "-"*50)
-    print(explain_code_logic(user_code))
-
-    print("\n💡 Suggestions:\n" + "-"*50)
-    for suggestion in suggest_improvements(user_code):
-        print("- " + suggestion)
