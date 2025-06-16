@@ -1,9 +1,12 @@
 # chat_assistant.py
-
 import openai
+import os
+from dotenv import load_dotenv
 
-# 🔐 Paste your API key here
-openai.api_key = "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" 
+# Load API key from .env file
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 # 🎭 Define tone prompt templates
 tone_prompts = {
     "friendly": "You are a friendly assistant who explains things clearly and casually.",
